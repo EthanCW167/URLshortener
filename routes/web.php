@@ -1,7 +1,8 @@
 <?php
 
-use app\Controllers\MappingController;
+use App\Http\Controllers\MappingController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/mapping', '\App\Http\Controllers\MappingController@index');
-Route::get('/mapping/new', '\App\Http\Controllers\MappingController@create')->name('mapping.new');
-Route::post('/mapping/new', '\App\Http\Controllers\MappingController@store');
+//Route::get('/mapping', MappingController::class);
 
-Route::get('/{slug}', '\App\Http\Controllers\MappingController@handleRedirect');
+//[MappingController::class, 'index']
+Route::get('/mapping', [MappingController::class, 'index']); //'\App\Http\Controllers\MappingController@index'
+Route::get('/mapping/new', [MappingController::class, 'create'])->name('mapping.new'); //'\App\Http\Controllers\MappingController@create'
+Route::post('/mapping/new', [MappingController::class, 'store']); //'\App\Http\Controllers\MappingController@store'
+
+//Route::get('/{slug}', MappingController::class, 'handleRedirect'); //'\App\Http\Controllers\MappingController@handleRedirect'
