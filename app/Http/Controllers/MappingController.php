@@ -12,6 +12,12 @@ class MappingController extends Controller
     /**
      * Display a listing of the resource.
      */
+    //public function __invoke()
+    //{
+    //    $items = \App\Models\Mapping::all();
+    //    return view('mapping.all', ['items' => $items]);
+    //}
+
     public function index()
     {
         $items = \App\Models\Mapping::all();
@@ -31,13 +37,31 @@ class MappingController extends Controller
      */
     public function store(StoreMappingRequest $request)
     {
+        $chars = "abcdfghjkmnpqrstvwxyz|ABCDFGHJKLMNPQRSTVWXYZ|0123456789";
+
+        $sets = explode('|', $chars);
+        $all = '';
+        $randString = '';
+        foreach($sets as $set){
+            $randString .= $set[array_rand(str_split($set))];
+            $all .= $set;
+        }
+        $all = str_split($all);
+        for($i = 0; $i < 6 - count($sets); $i++){
+            $randString .= $all[array_rand($all)];
+        }
+        $randString = str_shuffle($randString);
+
         $mapping = new \App\Models\Mapping;
-        $mapping->slug = $request["slug"];
+        $mapping->slug = $randString;
+
+        //$mapping->slug = $request["slug"];
+
         $mapping->redirect = $request["redirect"];
 
         $mapping->save();
 
-        return redirect("/mapping");
+        return response()->json($mapping);
     }
 
     /**
