@@ -1,5 +1,6 @@
 ## URL Shortener
 
-A simple URL shortener using laravel and tailwindCSS
+A simple URL shortener using laravel and tailwindCSS.
 
-Issues in VSCode and Github synchronisation resulted in inaccurate Commits
+Includes API route for integration within other projects.
+
